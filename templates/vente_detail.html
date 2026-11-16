@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Vente n°{{ v.id_vente }}</h2>
+<p class="text-muted">Date : {{ v.date_vente }}</p>
+<div class="table-responsive"><table class="table table-striped bg-white">
+  <thead><tr><th>Produit</th><th class="text-end">Quantité</th><th class="text-end">Prix unitaire</th><th class="text-end">Sous-total</th></tr></thead>
+  <tbody>{% set ns = namespace(t=0) %}
+  {% for l in lignes %}{% set ns.t = ns.t + l.quantite * l.prix_unitaire %}
+  <tr><td>{{ l.designation }}</td><td class="text-end">{{ l.quantite }}</td>
+    <td class="text-end">{{ '{:,.0f}'.format(l.prix_unitaire).replace(',', ' ') }} FCFA</td>
+    <td class="text-end">{{ '{:,.0f}'.format(l.quantite * l.prix_unitaire).replace(',', ' ') }} FCFA</td></tr>{% endfor %}
+  <tr class="fw-bold"><td colspan="3" class="text-end">Total</td><td class="text-end">{{ '{:,.0f}'.format(ns.t).replace(',', ' ') }} FCFA</td></tr>
+  </tbody></table></div>
+<a class="btn btn-secondary" href="{{ url_for('ventes') }}">Retour</a>
+{% endblock %}

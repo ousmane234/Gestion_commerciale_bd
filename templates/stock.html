@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Stock actuel</h2>
+<div class="table-responsive"><table class="table table-striped bg-white">
+  <thead><tr><th>Produit</th><th>Catégorie</th><th class="text-end">Stock</th></tr></thead>
+  <tbody>
+  {% for s in stock %}<tr><td>{{ s.designation }}</td><td>{{ s.libelle }}</td>
+    <td class="text-end"><span class="badge {{ 'bg-danger' if s.stock_actuel <= 0 else ('bg-warning text-dark' if s.stock_actuel < 5 else 'bg-success') }}">{{ s.stock_actuel }}</span></td></tr>
+  {% else %}<tr><td colspan="3" class="text-center text-muted">Aucun produit</td></tr>{% endfor %}
+  </tbody></table></div>
+<p class="text-muted small">Le stock = entrées (approvisionnements) − sorties (ventes).</p>
+{% endblock %}

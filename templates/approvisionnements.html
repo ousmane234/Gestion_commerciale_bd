@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3"><h2 class="mb-0">Approvisionnements</h2>
+  <a class="btn btn-success" href="{{ url_for('appro_nouveau') }}">+ Nouvel approvisionnement</a></div>
+<div class="table-responsive"><table class="table table-striped bg-white">
+  <thead><tr><th>#</th><th>Date</th><th>Fournisseur</th><th>Lignes</th><th class="text-end">Total</th><th></th></tr></thead>
+  <tbody>
+  {% for a in appros %}<tr><td>{{ a.id_appro }}</td><td>{{ a.date_appro }}</td><td>{{ a.fournisseur }}</td><td>{{ a.nb_lignes }}</td>
+    <td class="text-end">{{ '{:,.0f}'.format(a.total).replace(',', ' ') }} FCFA</td>
+    <td class="text-end"><a class="btn btn-sm btn-outline-primary" href="{{ url_for('appro_detail', id=a.id_appro) }}">Détail</a></td></tr>
+  {% else %}<tr><td colspan="6" class="text-center text-muted">Aucun approvisionnement</td></tr>{% endfor %}
+  </tbody></table></div>
+{% endblock %}

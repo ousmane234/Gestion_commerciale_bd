@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Fournisseurs</h2>
+<form method="post" action="{{ url_for('fournisseur_ajouter') }}" class="row g-2 mb-4">
+  <div class="col-md-4"><input name="nom" class="form-control" placeholder="Nom" required></div>
+  <div class="col-md-3"><input name="telephone" class="form-control" placeholder="Téléphone"></div>
+  <div class="col-md-3"><input name="adresse" class="form-control" placeholder="Adresse"></div>
+  <div class="col-md-2"><button class="btn btn-success w-100">Ajouter</button></div>
+</form>
+<div class="table-responsive"><table class="table table-striped bg-white">
+  <thead><tr><th>#</th><th>Nom</th><th>Téléphone</th><th>Adresse</th><th class="text-end">Actions</th></tr></thead>
+  <tbody>
+  {% for f in fournisseurs %}
+  <tr><td>{{ f.id_fournisseur }}</td><td>{{ f.nom }}</td><td>{{ f.telephone or '' }}</td><td>{{ f.adresse or '' }}</td>
+    <td class="text-end"><form class="d-inline" method="post" action="{{ url_for('fournisseur_supprimer', id=f.id_fournisseur) }}" onsubmit="return confirm('Supprimer ?')">
+      <button class="btn btn-sm btn-outline-danger">Supprimer</button></form></td></tr>
+  {% else %}<tr><td colspan="5" class="text-center text-muted">Aucun fournisseur</td></tr>
+  {% endfor %}
+  </tbody></table></div>
+{% endblock %}
