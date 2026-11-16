@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Modifier la catégorie</h2>
+<form method="post" class="row g-2">
+  <div class="col-sm-8"><input name="libelle" class="form-control" value="{{ cat.libelle }}" required></div>
+  <div class="col-sm-4"><button class="btn btn-success">Enregistrer</button>
+    <a class="btn btn-secondary" href="{{ url_for('categories') }}">Annuler</a></div>
+</form>
+{% endblock %}

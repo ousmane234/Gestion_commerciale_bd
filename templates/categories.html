@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Catégories</h2>
+<form method="post" action="{{ url_for('categorie_ajouter') }}" class="row g-2 mb-4">
+  <div class="col-sm-8"><input name="libelle" class="form-control" placeholder="Libellé de la catégorie" required></div>
+  <div class="col-sm-4"><button class="btn btn-success w-100">Ajouter</button></div>
+</form>
+<div class="table-responsive">
+<table class="table table-striped bg-white">
+  <thead><tr><th>#</th><th>Libellé</th><th class="text-end">Actions</th></tr></thead>
+  <tbody>
+  {% for c in categories %}
+    <tr><td>{{ c.id_categorie }}</td><td>{{ c.libelle }}</td>
+      <td class="text-end">
+        <a class="btn btn-sm btn-outline-primary" href="{{ url_for('categorie_modifier', id=c.id_categorie) }}">Modifier</a>
+        <form class="d-inline" method="post" action="{{ url_for('categorie_supprimer', id=c.id_categorie) }}"
+              onsubmit="return confirm('Supprimer cette catégorie ?')">
+          <button class="btn btn-sm btn-outline-danger">Supprimer</button></form>
+      </td></tr>
+  {% else %}<tr><td colspan="3" class="text-center text-muted">Aucune catégorie</td></tr>
+  {% endfor %}
+  </tbody>
+</table></div>
+{% endblock %}
